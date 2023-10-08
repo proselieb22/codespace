@@ -3,7 +3,7 @@ def main():
     time = convert(input)
 
 def convert(time):
-    time
+    hours, minutes = time.split(":")
 
 
 if __name__ == "__main__":
