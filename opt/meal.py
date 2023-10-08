@@ -1,5 +1,5 @@
 def main():
-print("Wh is)
+input("What time is it? ")
 
 
 def convert(time):
