@@ -1,5 +1,5 @@
 def main():
-    ...
+print("Wh is)
 
 
 def convert(time):
