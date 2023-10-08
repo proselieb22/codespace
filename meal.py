@@ -6,7 +6,7 @@ def main():
     if time >= 12 and time <= 13:
         print("lunch time")
     if time >= 18 and time <= 19:
-        print("dinner time"))
+        print("dinner time")
 def convert(time):
     hours, minutes = time.split(":")
     new_minute = float(minutes) / 60
