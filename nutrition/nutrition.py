@@ -1,16 +1,30 @@
-# Dictionary containing fruits and their corresponding calories per portion
 fruit_calories = {
     "apple": 130,
     "avocado": 50,
-    "sweet cherries": 100,
-    # Add other fruits and their calorie values here
+    "Banana": 110,
+    "Cantaloupe": 50,
+    "Grapefruit": 60,
+    "Grapes": 90,
+    "Honeydew Melon": 50,
+    "Kiwifruit": 90,
+    "Lemon": 15,
+    "Lime": 20,
+    "Nectarine": 60,
+    "Orange": 80,
+    "Peach": 60,
+    "Pear": 100,
+    "Pineapple": 50,
+    "Plums": 70,
+    "Strawberries": 50,
+    "Sweet Cherries": 100,
+    "Tangerine": 50,
+    "Watermelon": 80,
 }
 
 def main():
-    fruit = input("Enter a fruit: ").lower()  # Convert input to lowercase for case insensitivity
+    fruit = input("Enter a fruit: ").lower()
     if fruit in fruit_calories:
         print(f"Calories: {fruit_calories[fruit]}")
-    # No output if the entered fruit is not in the dictionary
 
 if __name__ == "__main__":
     main()
