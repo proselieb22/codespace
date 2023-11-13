@@ -1,5 +1,5 @@
 def calculate_change(total_inserted):
-    return total_inserted - 50  
+    return total_inserted - 50  # Calculate the change
 
 def main():
     while True:
@@ -10,13 +10,13 @@ def main():
             if coin in [25, 10, 5]:
                 total_inserted += coin
             else:
-                print("Coke only accepts 25, 10, or 5 cents. Please insert a valid coin.")
+                print("coke rejects invalid amount of cents")
 
         change = calculate_change(total_inserted)
         if change == 0:
-            print("No change owed. Thank you!")
+            print("No change owed.")
         else:
-            print(f"Change Owed: {change if change > 0 else 0} cents")
+            print(f"Change Owed: {abs(change)} cents")
 
         choice = input("Would you like to buy another Coke? (yes/no): ")
         if choice.lower() != 'yes':
@@ -24,4 +24,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
