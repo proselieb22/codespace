@@ -10,9 +10,9 @@ def is_valid(s):
         return False
     if not s[:2].isalpha():  # Checks if first two characters are letters
         return False
-    if not s.isalnum():  # Checks if all characters are alphanumeric
+    if not s[2:].isnumeric():  # Checks if characters after the first two are numbers
         return False
-    if not s[2:].isdigit() or s[2] == '0':  # Checks if characters after the first two are numbers and first number is not '0'
+    if s[2] == '0':  # Checks if the first number is not '0'
         return False
     return True
 
