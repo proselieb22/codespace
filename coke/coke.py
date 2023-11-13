@@ -14,9 +14,9 @@ def main():
 
         change = calculate_change(total_inserted)
         if change == 0:
-            print("Change Owed: 0 cents")
+            print("No change owed.")
         else:
-            print(f"Change Owed: {change if change > 0 else abs(change)} cents")
+            print(f"Change Owed: {abs(change)} cents")
 
         choice = input("Would you like to buy another Coke? (yes/no): ")
         if choice.lower() != 'yes':
