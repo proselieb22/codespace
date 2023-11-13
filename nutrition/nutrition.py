@@ -12,7 +12,7 @@ fruit_calories = {
     "Nectarine": 60,
     "Orange": 80,
     "Peach": 60,
-    "Pear": 100,
+    "pear": 100,
     "Pineapple": 50,
     "Plums": 70,
     "Strawberries": 50,
