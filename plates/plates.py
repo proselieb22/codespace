@@ -12,9 +12,7 @@ def is_valid(s):
         return False
     if not s.isalnum():  # Checks if all characters are alphanumeric
         return False
-    if not s[2:].isdigit():  # Checks if characters after the first two are numbers
-        return False
-    if s[2] == '0':  # Checks if the first number is not '0'
+    if not s[2:].isdigit() or s[2] == '0':  # Checks if characters after the first two are numbers and first number is not '0'
         return False
     return True
 
