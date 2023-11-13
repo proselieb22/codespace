@@ -13,7 +13,7 @@ def has_valid_number_placement(s):
     return True
 
 def has_no_punctuation(s):
-    return all(char.isalnum() for char in s)
+    return s.isalnum()
 
 def is_valid(s):
     return (
