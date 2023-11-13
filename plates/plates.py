@@ -9,7 +9,7 @@ def has_valid_number_placement(s):
     if any(char.isdigit() for char in s):
         last_num_index = s.rfind([char for char in s if char.isdigit()][-1])
         if last_num_index != -1:
-            return s[last_num_index] == s[-1] and s[last_num_index] != '0'
+            return last_num_index == len(s) - 1 and s[last_num_index] != '0'
     return True
 
 def has_no_punctuation(s):
