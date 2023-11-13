@@ -14,7 +14,7 @@ def main():
 
         change = calculate_change(total_inserted)
         if change == 0:
-            print("No change owed.")
+            print("Change Owed: 0 cents")
         else:
             print(f"Change Owed: {abs(change)} cents")
 
@@ -24,5 +24,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
