@@ -1,28 +1,3 @@
-def has_at_least_two_letters(s):
-    letter_count = sum(1 for char in s if char.isalpha())
-    return letter_count >= 2
-
-def has_valid_length(s):
-    return 2 <= len(s) <= 6
-
-def has_valid_number_placement(s):
-    if any(char.isdigit() for char in s):
-        last_num_index = s.rfind([char for char in s if char.isdigit()][-1])
-        if last_num_index != -1:
-            return last_num_index == len(s) - 1 and s[last_num_index] != '0'
-    return True
-
-def has_no_punctuation(s):
-    return s.isalnum()
-
-def is_valid(s):
-    return (
-        has_at_least_two_letters(s) and
-        has_valid_length(s) and
-        has_valid_number_placement(s) and
-        has_no_punctuation(s)
-    )
-
 def main():
     plate = input("Plate: ")
     if is_valid(plate):
@@ -30,5 +5,17 @@ def main():
     else:
         print("Invalid")
 
-if __name__ == "__main__":
-    main()
+def is_valid(s):
+    if len(s) < 2 or len(s) > 6:  # Checks length
+        return False
+    if not s[:2].isalpha():  # Checks if first two characters are letters
+        return False
+    if not s.isalnum():  # Checks if all characters are alphanumeric
+        return False
+    if not s[2:].isdigit():  # Checks if characters after the first two are numbers
+        return False
+    if s[2] == '0':  # Checks if the first number is not '0'
+        return False
+    return True
+
+main()
