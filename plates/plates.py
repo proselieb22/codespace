@@ -1,26 +1,18 @@
-def starts_with_letters(s):
-    return s[:2].isalpha()
+def is_valid(s):
+    if len(s) < 2 or not s[:2].isalpha():
+        return False
 
-def valid_length(s):
-    return 2 <= len(s) <= 6
+    if len(s) > 6:
+        return False
 
-def valid_number_placement(s):
-    if any(char.isdigit() for char in s):
-        last_num_index = s.rfind([char for char in s if char.isdigit()][-1])
-        if last_num_index != -1:
-            return last_num_index == len(s) - 1 and s[last_num_index] != '0'
+    if not s.isalnum():
+        return False
+
+    if '0' in s[:-1] or not s[-1].isdigit():
+        return False
+
     return True
 
-def no_punctuation(s):
-    return s.isalnum()
-
-def is_valid(s):
-    return (
-        starts_with_letters(s) and
-        valid_length(s) and
-        valid_number_placement(s) and
-        no_punctuation(s)
-    )
 
 def main():
     plate = input("Plate: ")
@@ -29,5 +21,5 @@ def main():
     else:
         print("Invalid")
 
-if __name__ == "__main__":
-    main()
+
+main()
