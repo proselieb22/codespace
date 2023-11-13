@@ -1,5 +1,5 @@
 def calculate_change(total_inserted):
-    return total_inserted - 50 
+    return total_inserted - 50
 
 def main():
     while True:
@@ -14,7 +14,7 @@ def main():
 
         change = calculate_change(total_inserted)
         if change == 0:
-            print("No change owed.")
+            print("Change Owed: 0")
         else:
             print(f"Change Owed: {abs(change)} cents")
 
