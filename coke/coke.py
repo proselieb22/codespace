@@ -1,5 +1,5 @@
 def calculate_change(total_inserted):
-    return total_inserted - 50  # Calculate the change
+    return total_inserted - 50 
 
 def main():
     while True:
