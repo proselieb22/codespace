@@ -6,14 +6,12 @@ def main():
         print("Invalid")
 
 def is_valid(s):
-    if len(s) < 2 or len(s) > 6:  # Checks length
+    if len(s) < 2 or len(s) > 6:  # Check length
         return False
-    if not s[:2].isalpha():  # Checks if first two characters are letters
+    if not s[:2].isalpha():  # Check if first two characters are letters
         return False
-    if not s[2:].isnumeric():  # Checks if characters after the first two are numbers
-        return False
-    if s[2] == '0':  # Checks if the first number is not '0'
-        return False
-    return True
+    if s[2:-1].isdigit() and s[-1].isnumeric() and s[2] != '0':  # Check number placement
+        return True
+    return False
 
 main()
