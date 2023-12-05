@@ -1,9 +1,13 @@
-def main():
-    pass
+from twttr import shorten
 
-def shorten(word):
-    vowels = "AEIOUaeiou"
-    return ''.join(char for char in word if char not in vowels)
+def main():
+    test_shorten()
+
+def test_shorten():
+    assert shorten("twitter") == "twttr"
+    assert shorten("CAPSTWITTER") == "CPSTWTTR"
+    assert shorten("TWIT SPACE S") == "TWT SPC S"
+    assert shorten("Axe124//!.?") == "x124//!.?"
 
 if __name__ == "__main__":
     main()
