@@ -1,11 +1,9 @@
-import twttr
+def main():
+    pass
 
-def test_shorten_no_vowels():
-    assert twttr.shorten("hello") == "hll"
-    assert twttr.shorten("world") == "wrld"
-    assert twttr.shorten("Python") == "Pythn"
+def shorten(word):
+    vowels = "AEIOUaeiou"
+    return ''.join(char for char in word if char not in vowels)
 
-def test_shorten_with_vowels():
-    assert twttr.shorten("aEiOu") == ""
-    assert twttr.shorten("test") == "tst"
-    assert twttr.shorten("check") == "chk"
+if __name__ == "__main__":
+    main()
