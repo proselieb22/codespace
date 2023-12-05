@@ -1,16 +1,31 @@
-from pyfiglet import Figlet
+import sys
 import random
 
-fonts = Figlet().getFonts()
-if len(sys.argv) == 1:
-    font = random.choice(fonts)
-elif len(sys.argv) == 3:
-    if sys.argv[1] in ["-f", "--font"] and sys.argv[2] in fonts:
-        font = sys.argv[2]
-    else:
-        sys.exit("Invalid arguments.")
-else:
-    sys.exit("Invalid number of arguments.")
+from pyfiglet import Figlet
+figlet = Figlet()
 
-text = input("Input: ")
-print("Output:\n", Figlet(font=font).renderText(text))
+if len(sys.argv) == 1:
+    isRandom = True
+elif len(sys.argv) == 3 and sys.argv[1] in ["-f", "--font"]:
+    isRandom = False
+else:
+    print("Invalid usage")
+    sys.exit(1)
+
+figlet.getFonts()
+
+if isRandom == False:
+    try:
+        font = figlet.setFont(font=sys.argv[2])
+    except:
+        print("Invalid usage")
+        sys.exit(1)
+else:
+    font = random.choice(figlet.getFonts())
+
+msg = input("Input: ")
+
+output = figlet.renderText(msg)
+
+print("Output: ")
+print(output)
