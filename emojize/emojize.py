@@ -7,7 +7,7 @@ def emojize_text(text):
 def main():
     user_input = input("Enter a text in English: ")
     emojized = emojize_text(user_input)
-    print("Emojized text:", emojized)
+    print(f"Emojized text: {emojized}")
 
 if __name__ == "__main__":
     main()
