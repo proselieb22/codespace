@@ -1,14 +1,16 @@
 import inflect
 
-p = inflect.engine()
+namelist = []
 
-names_list = []r
 while True:
-    try:t
+    try:
         name = input("Name: ")
-        names_list.append(name)
-    except EOFError:p
-        print()
-        breake
-output = p.join(names_list)
-print("Adieu, adieu, to "+ output)
+        namelist.append(name)
+
+    except EOFError:
+        result = inflect.engine().join(namelist)
+        print("")
+        print("Adieu, adieu, to " + result)
+        break
+    else:
+        continue
