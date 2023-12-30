@@ -1,10 +1,20 @@
-import sys
+# project.py
+
 import requests
-import bs4
 import re
 import wikipedia
 
+def wiki(file):
+    # Function to fetch Wikipedia links based on keywords in the file
+    # Implementation goes here
+    pass
 
+def output(results, wikipages, outfile="output.tsv"):
+    # Function to write the output to the specified file
+    # Implementation goes here
+    pass
+
+# Other functions required in project.py file
 def print_help():
     print("This program helps you sort keywords by the number of Google search results.")
     print("Usage: project.py INPUT_FILE OUTPUT_FILE [-w]")
