@@ -2,108 +2,91 @@ import random
 import re
 
 songs = [
-"Bohemian Rhapsody" - Queen
-"Hey Jude" - The Beatles
-"Hotel California" - Eagles
-"Like a Rolling Stone" - Bob Dylan
-"Thriller" - Michael Jackson
-"Stairway to Heaven" - Led Zeppelin
-"Imagine" - John Lennon
-"Smells Like Teen Spirit" - Nirvana
-"Purple Haze" - Jimi Hendrix
-"Billie Jean" - Michael Jackson
-"Every Breath You Take" - The Police
-"Wonderwall" - Oasis
-"Sweet Child o' Mine" - Guns N' Roses
-"Someone Like You" - Adele
-"Hallelujah" - Jeff Buckley
-"Yesterday" - The Beatles
-"Livin' on a Prayer" - Bon Jovi
-"Don't Stop Believin'" - Journey
-"Shape of You" - Ed Sheeran
-"The Sound of Silence" - Simon & Garfunkel
-"My Way" - Frank Sinatra
-"I Will Always Love You" - Whitney Houston
-"Thinking Out Loud" - Ed Sheeran
-"Sweet Caroline" - Neil Diamond
-"Boogie Wonderland" - Earth, Wind & Fire
-"I Want to Hold Your Hand" - The Beatles
-"I Will Survive" - Gloria Gaynor
-"Waterloo" - ABBA
-"Tears in Heaven" - Eric Clapton
-"Wannabe" - Spice Girls
-"A Thousand Years" - Christina Perri
-"Clocks" - Coldplay
-"Rolling in the Deep" - Adele
-"Born to Run" - Bruce Springsteen
-"Under Pressure" - Queen & David Bowie
-"The Winner Takes It All" - ABBA
-"Dancing Queen" - ABBA
-"Let It Be" - The Beatles
-"Boogie Woogie Bugle Boy" - The Andrews Sisters
-"Good Vibrations" - The Beach Boys
-"All of Me" - John Legend
-"Firework" - Katy Perry
-"I Say a Little Prayer" - Aretha Franklin
-"Nothing Else Matters" - Metallica
-"Angels" - Robbie Williams
-"Radioactive" - Imagine Dragons
-"Ain't No Mountain High Enough" - Marvin Gaye & Tammi Terrell
-"Love Me Tender" - Elvis Presley
-"Purple Rain" - Prince
-"Respect" - Aretha Franklin
-"I Want You Back" - The Jackson 5
-"With or Without You" - U2
-"Blackbird" - The Beatles
-"I Gotta Feeling" - The Black Eyed Peas
-"Let's Get It On" - Marvin Gaye
-"September" - Earth, Wind & Fire
-"Summertime" - Ella Fitzgerald & Louis Armstrong
-"Your Song" - Elton John
-"Three Little Birds" - Bob Marley & The Wailers
-"All You Need Is Love" - The Beatles
-"I Heard It Through the Grapevine" - Marvin Gaye
-"What a Wonderful World" - Louis Armstrong
-"Don't You Want Me" - The Human League
-"Sweet Dreams (Are Made of This)" - Eurythmics
-"Roxanne" - The Police
-"No Woman, No Cry" - Bob Marley & The Wailers
-"Faith" - George Michael
-"Killing Me Softly With His Song" - Roberta Flack
-"Help!" - The Beatles
-"Crazy" - Gnarls Barkley
-"Vogue" - Madonna
-"Dreams" - Fleetwood Mac
-"Space Oddity" - David Bowie
-"All Night Long (All Night)" - Lionel Richie
-"Unforgettable" - Nat King Cole
-"Brown Eyed Girl" - Van Morrison
-"Highway to Hell" - AC/DC
-"I'm Yours" - Jason Mraz
-"Heaven" - Bryan Adams
-"Let's Stay Together" - Al Green
-"Kiss From a Rose" - Seal
-"A Change Is Gonna Come" - Sam Cooke
-"It Must Have Been Love" - Roxette
-"You're Beautiful" - James Blunt
-"Shape of My Heart" - Sting
-"Rocket Man" - Elton John
-"Ain't No Sunshine" - Bill Withers
-"I'll Be There" - The Jackson 5
-"White Wedding" - Billy Idol
-"My Girl" - The Temptations
-"Girls Just Want to Have Fun" - Cyndi Lauper
-"Take On Me" - a-ha
-"Stand by Me" - Ben E. King
-"Losing My Religion" - R.E.M.
-"Eye of the Tiger" - Survivor
-"Sweet Home Alabama" - Lynyrd Skynyrd
-"I Want to Break Free" - Queen
-"Fast Car" - Tracy Chapman
-"The Power of Love" - Huey Lewis & The News
+"Bohemian Rhapsody", "Queen"
+"Hey Jude", "The Beatles"
+"Hotel California", "Eagles"
+"Like a Rolling Stone", "Bob Dylan"
+"Thriller", "Michael Jackson"
+"Stairway to Heaven", "Led Zeppelin"
+"Imagine", "John Lennon"
+"Smells Like Teen Spirit", "Nirvana"
+"Purple Haze", "Jimi Hendrix"
+"Billie Jean", "Michael Jackson"
+"Every Breath You Take", "The P"olice"
+"Wonderwall", "Oasis"
+"Sweet Child o' Mine", "Guns N' Roses"
+"Someone Like You", "Adele"
+"Hallelujah", "Jeff Buckley""
+"Yesterday", "The Beatles"
+"Livin' on a Prayer", "Bon Jovi"
+"Don't Stop Believin'", "Journey"
+"Shape of You", "Ed Sheeran"
+"The Sound of Silence", "Simon & Garfunkel"
+"My Way", "Frank Sinatra"
+"I Will Always Love You", "Whitney Houston"
+"Thinking Out Loud", "Ed Sheeran"
+"Sweet Caroline", "Neil Diamond"
+"Boogie Wonderland", "Earth, Wind & Fire"
+"I Want to Hold Your Hand", "The Beatles"
+"I Will Survive", "Gloria Gaynor"
+"Waterloo", "ABBA"
+"Tears in Heaven", "Eric Clapton"
+"Wannabe", "Spice Girls"
+"A Thousand Years", "Christina Perri"
+"Clocks", "Coldplay"
+"Rolling in the Deep", "Adele"
+"Born to Run", "Bruce Springsteen"
+"Under Pressure", "Queen & David Bowie"
+"The Winner Takes It All", "ABBA"
+"Dancing Queen", "ABBA"
+"Let It Be", "The Beatles"
+"Boogie Woogie Bugle Boy", "The Andrews Sisters"
+"Good Vibrations", "The Beach Boys"
+"All of Me", "John Legend"
+"Firework", "Katy Perry"
+"I Say a Little Prayer", "Aretha Franklin"
+"Nothing Else Matters", "Metallica"
+"Angels", "Robbie Williams"
+"Radioactive", "Imagine Dragons"
+"Ain't No Mountain High Enough", "Marvin Gaye & Tammi Terrell"
+"Love Me Tender", "Elvis Presley"
+"Purple Rain", "Prince"
+"Respect", "Aretha Franklin"
+"I Want You Back", "The Jackson 5"
+"With or Without You", "U2"
+"Blackbird", "The Beatles"
+"I Gotta Feeling", "The Black Eyed Peas"
+"Let's Get It On", "Marvin Gaye"
+"September", "Earth, Wind & Fire"
+"Summertime", "Ella Fitzgerald & Louis Armstrong
+"Your Song", "Elton John"
+"Three Little Birds", "Bob Marley & The Wailers"
+"All You Need Is Love", "The Beatles"
+"I Heard It Through the Grapevine", "Marvin Gaye"
+"What a Wonderful World", "Louis Armstrong"
+"Don't You Want Me",  "The Human League"
+"Sweet Dreams (Are Made of This)", "Eurythmics"
+"Roxanne", "The Police"
+"No Woman, No Cry", "Bob Marley & The Wailers"
+"Faith", "George Michael"
+"Killing Me Softly With His Song", "Roberta Flack"
+"Help!", "The Beatles"
+"Crazy", "Gnarls Barkley"
+"Vogue", "Madonna"
+"Dreams", "Fleetwood Mac"
+"Space Oddity", "David Bowie"
+"All Night Long (All Night)", "Lionel Richie"
+"Unforgettable", "Nat King Cole"
+"Brown Eyed Girl", "Van Morrison"
+"Highway to Hell", "AC/DC"
+"I'm Yours", "Jason Mraz"
+"Heaven", "Bryan Adams"
+"Let's Stay Together", "Al Green"
+"Kiss From a Rose", "Seal"
+"A Change Is Gonna Come", "Sam Cooke"
+"It Must Have Been Love", "Roxette"
+"You're Beautiful", "James Blunt
 ]
-
-
 def main():
     input('\nHello, press enter to play hangman!')
     print('\nEnter -e or --exit to end game')
