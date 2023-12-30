@@ -25,3 +25,18 @@ This project consists of four documents:
 
 ##### Example: `$ python project.py input.txt output.tsv -w`
 ##### `input.txt`:
+##### `output.tsv`:
+
+Ecoli
+cats
+New York
+CS50
+
+| Keyword  | Google Results | Wikipedia Link |
+| -------- | -------------- | -------------- |
+| New York | 8,360,000,000  | [New York City](https://en.wikipedia.org/wiki/New_York_City) |
+| cats     | 4,270,000,000  | [Cat](https://en.wikipedia.org/wiki/Cat) |
+| Ecoli    | 2,360,000,000  | [Escherichia coli](https://en.wikipedia.org/wiki/Escherichia_coli) |
+| CS50     | 10,700,000     | [CS50](https://en.wikipedia.org/wiki/CS50) |
+
+##### Observation: New York City appears to be the most searched item!
