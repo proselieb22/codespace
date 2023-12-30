@@ -1,8 +1,8 @@
 import random
 import re
 
-films = [
-    Bohemian Rhapsody" - Queen
+songs = [
+"Bohemian Rhapsody" - Queen
 "Hey Jude" - The Beatles
 "Hotel California" - Eagles
 "Like a Rolling Stone" - Bob Dylan
