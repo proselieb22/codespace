@@ -21,21 +21,14 @@ def convert(s):
     end_hour = int(end_hour)
     end_minute = int(end_minute or 0)
 
-    if (start_hour > 12 or start_minute >= 60 or end_hour > 12 or end_minute >= 60 or
-            (start_hour == 12 and start_meridiem == 'AM') or (end_hour == 12 and end_meridiem == 'AM')):
+    if (start_hour > 12 or start_minute >= 60 or end_hour > 12 or end_minute >= 60):
         raise ValueError("Invalid time")
 
-    if start_meridiem == 'PM' and start_hour != 12:
-        start_hour += 12
+    if start_meridiem == 'PM':
+        start_hour = start_hour % 12 + 12 if start_hour != 12 else 12
 
-    if end_meridiem == 'PM' and end_hour != 12:
-        end_hour += 12
-
-    if start_hour == 12 and start_meridiem == 'AM':
-        start_hour = 0
-
-    if end_hour == 12 and end_meridiem == 'AM':
-        end_hour = 0
+    if end_meridiem == 'PM':
+        end_hour = end_hour % 12 + 12 if end_hour != 12 else 12
 
     return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
 
