@@ -55,3 +55,12 @@ This application offers a simple and efficient way to manage tasks. Users can cr
    ```bash
    git clone https://github.com/yourusername/YourDesktopReminders.git
    cd YourDesktopReminders
+Install dependencies:
+pip install -r requirements.txt
+Create a .env file with the following variables:
+APP_EMAIL=your_email@gmail.com
+APP_PASSWORD=your_email_password
+Replace your_email@gmail.com and your_email_password with your email credentials.
+
+Run the application:
+python project.py
