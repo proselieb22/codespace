@@ -1,7 +1,7 @@
 # Tasker
 A command-line interface to-do list created using Python
 
-Video Demo: https://youtu.be/ze4drLzLYiw?si=uvVP6eW2bPBwfV88
+Video Demo: <https://youtu.be/ze4drLzLYiw?si=uvVP6eW2bPBwfV88>
 
 ---
 
