@@ -31,6 +31,12 @@ def convert(s):
     if end_meridiem == 'PM' and end_hour != 12:
         end_hour += 12
 
+    if start_hour == 12 and start_meridiem == 'AM':
+        start_hour = 0
+
+    if end_hour == 12 and end_meridiem == 'AM':
+        end_hour = 0
+
     return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
 
 
