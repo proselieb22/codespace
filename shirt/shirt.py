@@ -25,7 +25,7 @@ def overlay_shirt(input_image, output_image):
         shirt = Image.open("shirt.png")  # Replace "shirt.png" with the actual shirt image file name
 
         # Resize input image to the same size as shirt image
-        input_img = ImageOps.fit(input_img, shirt.size, method=0, bleed=0.0, centering=(0.5, 0.5))
+        input_img = input_img.resize(shirt.size)
 
         # Overlay shirt on input image
         input_img.paste(shirt, (0, 0), shirt)
