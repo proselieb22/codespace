@@ -1,35 +1,23 @@
-from project import wiki, output
-import requests
-import re
+# test_project.py
+import pytest
+from datetime import date
 
+from project import Task, email_alert, create_task, view_task, delete_task,rtask
 
-def test_google():
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
-    response = requests.get("https://www.google.com/search?q=Ecoli", headers=headers)
-    match = re.search(r"About [0-9,]+ results", response.text)
-    assert match != None
+def test_Task():
+    task = rtask("Dance", "Dance Today")
+    #task = task("Dance", "Dance Today", date.today())
+    assert str(task) == f"Name: Dance\nDescription: Dance Today\nDue date: {date.today()}"
 
+def test_view_task():
+    # Test viewing a task that exists
+    task = Task("Test Task", "This is a test task")
+    task_name = task.name
+    view_task(task_name)
 
-def test_wiki():
-    file = ['Ecoli\n', 'cats\n']
-    assert wiki(file) == {
-        'Ecoli': 'https://en.wikipedia.org/wiki/Escherichia_coli',
-        'cats': 'https://en.wikipedia.org/wiki/Cat',
-        }
-
-
-def test_output():
-    results = {'Ecoli': 2240000000, 'cats': 5780000000}
-    wikipages = {
-        'Ecoli': 'https://en.wikipedia.org/wiki/Escherichia_coli',
-        'cats': 'https://en.wikipedia.org/wiki/Cat',
-        }
-    outfile = 'out.tsv'
-
-    output(results, wikipages, outfile)
-
-    with open(outfile) as f:
-       assert f.readlines() == [
-           'cats\t5,780,000,000\thttps://en.wikipedia.org/wiki/Cat\n',
-           'Ecoli\t2,240,000,000\thttps://en.wikipedia.org/wiki/Escherichia_coli\n'
-           ]
+def test_email_alert():
+    # Test sending an email alert
+    body = "Test email body"
+    to_email = "test@example.com"
+    result = email_alert(body, to_email)
+    assert result == "Email sent successfully!"
