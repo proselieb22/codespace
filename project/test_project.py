@@ -32,4 +32,4 @@ def test_output():
        assert f.readlines() == [
            'cats\t5,780,000,000\thttps://en.wikipedia.org/wiki/Cat\n',
            'Ecoli\t2,240,000,000\thttps://en.wikipedia.org/wiki/Escherichia_coli\n'
-           
+           ]

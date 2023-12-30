@@ -1,4 +1,2 @@
-Python programming
-Machine learning
-Data visualization
-Artificial intelligence
+cats
+E coli
