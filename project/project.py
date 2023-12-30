@@ -1,109 +1,189 @@
-from tkinter import *
-from tkinter.ttk import *
-from tkinter import messagebox
-import customtkinter
-import json
-import requests
+from dotenv import dotenv_values
+import smtplib
+from email.message import EmailMessage
+import sys
+from datetime import datetime, date
 
-location_label = object
-image = object
-temperature = object
-weather = object
-api = "524b382968907ae30c822c0cc869ac26"
+secrets = dotenv_values(".env")
 
-def gui():
-    frame = Tk()
-    frame.title("Weather app")
-    frame.iconbitmap("icons\weather_icon.ico")
+all_tasks = {}
 
-    # get the screen dimentions of a laptop
-    screen_width = frame.winfo_screenwidth()
-    screen_height = frame.winfo_screenheight()
+class Task():
+    def __init__(self, name, description, due_date=None):
+        """
+        Initializing the class.
+        :param name: The name of task created.
+        :param description: The new task description.
+        :param due_date: The due date of the task. Default value if user provides wrong input == date.today()
+        """
+        self.name = name
+        self.description = description
+        self.due_date = due_date if due_date else date.today()
 
-    # centering the window
-    center_width = int(screen_width/2 - 500/2)  # 500 is a frame dimentions
-    center_height = int(screen_height/2 - 500/2)  # 500 is frame dimentions
+    @property
+    def name(self):
+        """
+        Getter for name
+        """
+        return self._name
 
-    frame.geometry(f"500x500+{center_width}+{center_height}")
-    frame.resizable(False, False)
-    frame.attributes("-alpha", 0.94)  # making transparent for 94 percents
+    @name.setter
+    def name(self, name):
+        """
+        Setter for name
+        :param name: The name of the task
+        """
+        if name in all_tasks:
+            raise ValueError("Task with similar name already exists!")
+        self._name = name
 
-    frame.configure(background="#fffbd5")
+    @property
+    def description(self):
+        """
+        Getter for description
+        """
+        return self._description
 
-    city_input = StringVar()
-    input = customtkinter.CTkEntry(frame, textvariable=city_input, width=360)
-    input.place(relx=0.5, rely=0.2, anchor=CENTER)
-    input.focus_set()
-    input.pack()
+    @description.setter
+    def description(self, description):
+        """
+        Setter for description
+        :param description: The description of the task
+        """
+        if len(description) > 200:
+            raise ValueError("Description can not be greater than 200 characters!")
+        self._description = description
 
-    search_button = customtkinter.CTkButton(master=frame, text="Search", width=260, command=lambda: search(city_input))
-    search_button.pack()
+    def __str__(self):
+        return f"Name: {self.name}\nDescription: {self.description}\nDue date: {self.due_date}"
 
-    # labels
-    global location_label
-    location_label = Label(frame, text='', font=('bold', 20))
-    location_label.config(background="#fffbd5")
-    location_label.pack()
+def rtask(n,d):
+    return Task(n,d)
 
-    global image
-    canvas = Canvas(frame, width=100, height=100)
-    canvas.config(background="#fffbd5")
-    canvas.pack()
-    image = PhotoImage(file="")
-    canvas.create_image(50, 50, anchor=CENTER, image=image)
+def email_alert(body, to):
+    """
+    This function will send an email to the user with the given body.
+    :param body: The body of the email.
+    :param to: The email address to send the email to. (User will be prompted)
+    :return: The success message of attempt to send email
+    """
+    try:
+        email = secrets["APP_EMAIL"]
+        pas = secrets["APP_PASSWORD"]
 
-    global temperature
-    temperature = Label(frame, text='')
-    temperature.config(font=14, background="#fffbd5")
-    temperature.pack()
+        msg = EmailMessage()
+        msg.set_content(body)
+        msg['subject'] = "Your Desktop Reminders"
+        msg['to'] = to
+        msg['from'] = "YourDesktopReminders@noreply.com"
 
-    global weather
-    weather = Label(frame, text='')
-    weather.config(font=14, background="#fffbd5")
-    weather.pack()
+        # The server we use to send emails, in this case, it will be gmail
+        smtp_server = "smtp.gmail.com"
+        port = 587
 
-    # Execute Tkinter
-    frame.mainloop()
+        # This will start our email server
+        server = smtplib.SMTP(smtp_server, port)
+        server.starttls()  # Note the parentheses here
+        server.login(email, pas)
+        server.send_message(msg)
 
-def get_coordinates(city: str)-> None:
-    url = "http://api.openweathermap.org/geo/1.0/direct?q={}&limit={}&appid={}"
+        # Lastly, quit the server
+        server.quit()
+        return "Email sent successfully!"
+    except smtplib.SMTPException as e:
+        print(f"Email not sent! Error: {e}")
 
-    request = requests.get(url.format(city, 1, api))
-    if request:
-        json = request.json()
-        # print(json[0]["lat"], json[0]["lon"])
-        # print(get_weather(json[0]["lat"], json[0]["lon"]))
-        return get_weather(json[0]["lat"], json[0]["lon"])
 
-def get_weather(lat: str, lon: str)-> tuple:
-    get_city_url = "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}"
+def create_task(to_email="test@example.com"):
+    """
+    This function will create a new task.
+    :param to_email: The email address to send the email to. (User will be prompted)
+    :return: The new task created.
+    """
 
-    result = requests.get(get_city_url.format(lat, lon, api))
-    if result:
-        json = result.json()
-        city = json["name"]
-        weather = json["weather"][0]["main"]
-        icon = json["weather"][0]["icon"]
-        temperature_kelvin = json["main"]["temp"]
-        temperature_celsius = temperature_kelvin - 273.15
-        temperature_fahrenheit = (temperature_kelvin - 273.15) * 9 / 5 + 32
-        country = json["sys"]["country"]
+    name = input("Task name: ")
+    description = input("Task description: ")
+    due_date = input("Due date (YYYY-MM-DD): ")
 
-        return  (city, weather, icon, temperature_celsius, temperature_fahrenheit, country)
+    try:
+        due_date = datetime.strptime(due_date, "%Y-%m-%d").date()
+    except ValueError:
+        print("Invalid date format. Please use YYYY-MM-DD.")
+        print("Using Todays date as default.")
 
-def search(city_input):
-    city = city_input.get()
-    weather_tuple = get_coordinates(city)
-    if weather_tuple:
-        location_label['text'] = "{}, {}".format(weather_tuple[0], weather_tuple[5])
-        image["file"] = "icons\{}.png".format(weather_tuple[2])
-        temperature["text"] = "{}°C, {}°F".format(round(float(weather_tuple[3]), 2), round(float(weather_tuple[4])), 2)
-        weather["text"] = weather_tuple[1]
+    task = Task(name, description, due_date)
+    all_tasks[name] = task
+    print(email_alert(f"New task created: {task.name}\nDescription: {task.description}\nDue: {task.due_date}", to_email))
+    return task
+
+def view_task(name):
+    """
+    This function will view a task.
+    :param name: The name of the task to be viewed.
+    """
+    if all_tasks:
+        if name in all_tasks:
+            task = all_tasks[name]
+            print("\n")
+            print(task)
+        else:
+            print("Task not found")
     else:
-        messagebox.showerror(title="Error", message=f"City {city} is not found")
+        print("No tasks created yet!")
+
+def delete_task(name, to_email="test@example.com"):
+    """
+    This function will delete a task.
+    :param name: The name of the task to be deleted.
+    :param to_email: The email address to send the email to. (User will be prompted)
+    """
+    if all_tasks:
+        if name in all_tasks:
+            task = all_tasks[name]
+            del all_tasks[name]
+            print(email_alert(f"Deleted Task:\n{task}", to_email))
+            print("Task deleted successfully!")
+            return True
+        else:
+            print("Task not found")
+            return False
+    else:
+        print("No tasks created yet!")
 
 def main():
-    gui()
+    """
+    This is the main function.
+    """
+    print("Welcome to Your Desktop Reminders!\n")
+
+    to_email = input("Enter email to send notifications to: ")
+
+    while True:
+        print("\n1. Create a new task")
+        print("2. View a task")
+        print("3. Delete a task")
+        print("4. Exit")
+        choice = int(input("Enter your choice: "))
+
+        match choice:
+            case 1:
+                create_task(to_email)
+            case 2:
+                print("\n")
+                for task in all_tasks:
+                    print(task)
+                name = input("\nEnter the name of the task you want to view: ")
+                view_task(name)
+            case 3:
+                print("\n")
+                for task in all_tasks:
+                    print(task)
+                name = input("\nEnter the name of the task you want to delete: ")
+                delete_task(name, to_email)
+            case 4:
+                sys.exit("Exiting Application...")
+            case _  :
+                sys.exit("Invalid Choice.")
 
 if __name__ == "__main__":
     main()
