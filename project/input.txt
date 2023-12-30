@@ -1,2 +1,4 @@
-E. coli
-
+Python programming
+Machine learning
+Data visualization
+Artificial intelligence
