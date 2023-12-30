@@ -44,27 +44,24 @@ def main():
     output(results, wikipages, sys.argv[2])
 
 
-def google(file):
-    '''
-    Input a file with key words in each line.
-    Output a dictionary with key words as keys, numbers of google search results as values.
-    '''
-    results = {}
+def test_google():
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
+    response = requests.get("https://www.google.com/search?q=Ecoli", headers=headers)
+    match = re.search(r"E\s*?coli", response.text, re.IGNORECASE)  # Updated regex pattern
+    assert match is not None
 
-    for line in file:
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
-        response = requests.get("https://www.google.com/search?q=" + line.strip(), headers=headers)
-        soup = bs4.BeautifulSoup(response.content, features="lxml")
-        stats = soup.find(id="result-stats")
         if stats:
             matches = re.search(r"About ([0-9,]+) results", stats.text)
-            n = matches.group(1)
+            if matches:
+                n = matches.group(1)
+            else:
+                n = '0'
         else:
             n = '0'
+
         results[line.strip()] = int(n.replace(',', ''))
 
     return results
-
 
 def wiki(file):
     '''
