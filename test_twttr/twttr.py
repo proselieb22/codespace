@@ -1,7 +1,7 @@
 def main():
-    input("input: ")
-    input_without_vowels = shorten(input)
-    print("Output: input_without_vowels)
+    nachricht = input("input: ")
+    nachricht_without_vowels = shorten(input)
+    print("Output: nachricht_without_vowels)
 
 def shorten(word):
     word_without_vowels = ""
