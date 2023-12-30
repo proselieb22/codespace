@@ -1,5 +1,2 @@
 E. coli
-Microbiology research
-Artificial intelligence
-Renewable energy sources
-Python programming
+
