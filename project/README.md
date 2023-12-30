@@ -1,5 +1,10 @@
 # Tasker
-A command-line interface to-do list created using Python
+This project is the final step for the CS50P course and a command-line interface to-do list created using Python
+You can view tasks
+You are able to create a task
+You can update a task
+You can delete a task
+Exit
 
 Video Demo: <https://youtu.be/ze4drLzLYiw?si=uvVP6eW2bPBwfV88>
 
