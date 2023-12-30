@@ -1,54 +1,62 @@
-from datetime import date, datetime
+from datetime import date
+import inflect
 import sys
-
-
-def calculate_age_in_minutes(birthdate):
-    try:
-        birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
-    except ValueError:
-        sys.exit()
-
-    today = date.today()
-    age = today - birthdate
-    total_minutes = age.total_seconds() // 60  # Convert total seconds to minutes
-
-    return int(total_minutes)
-
-
-def convert_to_words(n):
-    def num_to_words(n):
-        units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
-        tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
-
-        if n < 20:
-            return units[int(n)]
-        else:
-            return tens[int(n // 10)] + " " + units[int(n % 10)]
-
-    if n == 0:
-        return "Zero"
-
-    result = ""
-    if n >= 1000000:
-        result += num_to_words(n // 1000000) + " Million, "
-        n %= 1000000
-    if n >= 1000:
-        result += num_to_words(n // 1000) + " Thousand, "
-        n %= 1000
-    if n > 0:
-        result += num_to_words(n)
-
-    return result.capitalize()
-
+import re
 
 def main():
-    birthdate = input("Enter your birthdate (YYYY-MM-DD): ")
+    inpt=input('Date of Birth: ')
+    print(get_min(inpt))
 
-    total_minutes = calculate_age_in_minutes(birthdate)
-    age_in_words = convert_to_words(total_minutes)
 
-    print(age_in_words, "minutes")
+def get_min(inpt):
+
+    # gets dates from input using regex
+    if search := re.search(r'^(\d{4})-(\d{2})-(\d{2})$',inpt):
+        inpt=list(search.groups())
+    else:
+        sys.exit('Invalid date')
+
+    # converts str into int and checks valid date
+    inpt_bday = convert_and_check(inpt)
+
+    # today's date
+    today = date.today()
+
+    # bday
+    bday = date(inpt_bday[0], inpt_bday[1], inpt_bday[2])
+
+    # computes no of days
+    diff = bday - today
+    no_of_days = -int(diff.days)
+
+    # computes days into minutes
+    minutes = no_of_days * 24 * 60
+
+    # converts into words
+    inf = inflect.engine()
+    min_words = inf.number_to_words(minutes)
+
+    # remove 'and' and capitalize
+
+    min_words = min_words.replace(' and','').capitalize()
+
+    # return
+    return min_words + ' minutes'
+
+
+def convert_and_check(day):
+    # convert str to int
+    day = list(map(int, day))
+
+    # check valid date and month
+    if day[1] < 0 or day[1] > 12:
+        sys.exit('Invalid date')
+
+    elif day[2] < 0 or day[2] > 31:
+        sys.exit('Invalid date')
+
+    return day
+
 
 
 if __name__ == "__main__":
