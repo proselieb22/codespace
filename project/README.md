@@ -1,4 +1,4 @@
-# TaskMaster
+# Tasker
 A command-line interface to-do list created using Python
 
 [Video Demo])
