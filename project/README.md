@@ -1,7 +1,7 @@
 # TaskMaster
 A command-line interface to-do list created using Python
 
-[Video Demo](https://youtu.be/i_xbuGzeR_Q)
+[Video Demo])
 
 ---
 
@@ -24,7 +24,3 @@ $ pytest test_project.py
 ```
 
 ---
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
