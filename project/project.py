@@ -2,106 +2,105 @@ import random
 import re
 
 films = [
-    'The Godfather (1972)',
-    'The Shawshank Redemption (1994)',
-    'The Godfather, Part II (1974)',
-    'The Dark Knight (2009)',
-    '12 Angry Men (1957)',
-    'Schindler\'s List (1993)',
-    'The Lord of the Rings: The Return of the King (2003)',
-    'Pulp Fiction (1994)',
-    'The Good, the Bad, and the Ugly (1966)',
-    'The Lord of the Rings: The Fellowship of the Ring (2001)',
-    'Fight Club (1999)',
-    'Forrest Gump (1994)',
-    'Inception (2010)',
-    'The Lord of the Rings: The Two Towers (2002)',
-    'Star Wars: Episode V: The Empire Strikes Back (1980)',
-    'The Matrix (1999)',
-    'GoodFellas (1990)',
-    'One Flew Over The Cuckoo\'s Nest (1975)',
-    'The Seven Samurai (1954)',
-    'Se7en (1995)',
-    'Life is Beautiful (1997)',
-    'City of God (2002)',
-    'The Silence of the Lambs (1991)',
-    'It\'s A Wonderful Life (1946)',
-    'Star Wars (1977)',
-    'Saving Private Ryan (1998)',
-    'Spirited Away (2001)',
-    'The Green Mile (1999)',
-    'Interstellar (2014)',
-    'Parasite (2019)',
-    'Leon, aka The Professional (1994)',
-    'The Usual Suspects (1995)',
-    'Harakiri (1962)',
-    'The Lion King (1994)',
-    'Back to the Future (1985)',
-    'The Pianist (2002)',
-    'Terminator 2: Judgment Day (1991)',
-    'American History X (1998)',
-    'Modern Times (1936)',
-    'Psycho (1960)',
-    'Gladiator (2000)',
-    'City Lights (1931)',
-    'The Departed (2006)',
-    'The Intouchables (2011)',
-    'Whiplash (2014)',
-    'The Prestige (2006)',
-    'Grave of the Fireflies (1988)',
-    'Hamilton (2020)',
-    'Once Upon a Time in the West (1969)',
-    'Casablanca (1942)',
-    'Cinema Paradiso (1988)',
-    'Rear Window (1954)',
-    'Alien (1979)',
-    'Apocalypse Now (1979)',
-    'Memento (2000)',
-    'The Great Dictator (1940)',
-    'Raiders of the Lost Ark (1981)',
-    'Django Unchained (2012)',
-    'The Lives of Others (2006)',
-    'Joker (2019)',
-    'Paths of Glory (1957)',
-    'WALL-E (2008)',
-    'The Shining (1980)',
-    'Avengers: Infinity War (2018)',
-    'Sunset Boulevard (1950)',
-    'Witness For the Prosecution (1957)',
-    'Spider-Man: Into the Spider-Verse (2018)',
-    'Oldboy (2003)',
-    'Princess Mononoke (1997)',
-    'Dr. Strangelove or: How I Learned To Stop Worrying and Love the Bomb (1964)',
-    'The Dark Knight Rises (2012)',
-    'Once Upon a Time in America (1984)',
-    'Aliens (1986)',
-    'Your Name. (2016)',
-    'Avengers: Endgame (2019)',
-    'Coco (2017)',
-    'American Beauty (1999)',
-    'Braveheart (1995)',
-    'Das Boot (1981)',
-    '3 Idiots (2009)',
-    'Toy Story (1995)',
-    'High and Low (1963)',
-    'Capernaum (2018)',
-    'Amadeus (1984)',
-    'Inglourious Basterds (2009)',
-    'Star Wars: Episode VI - Return of the Jedi (1983)',
-    'Like Stars on Earth (2007)',
-    'Good Will Hunting (1997)',
-    'Reservoir Dogs (1992)',
-    '2001: A Space Odyssey (1968)',
-    'Requiem for a Dream (2000)',
-    'Vertigo (1958)',
-    'M (1931)',
-    'Eternal Sunshine of the Spotless Mind (2004)',
-    'The Hunt (2012)',
-    'Dangal (2016)',
-    'Citizen Kane (1941)',
-    '1917 (2019)',
-    'Full Metal Jacket (1987)',
-    'The Bicycle Thief (1948)',
+    Bohemian Rhapsody" - Queen
+"Hey Jude" - The Beatles
+"Hotel California" - Eagles
+"Like a Rolling Stone" - Bob Dylan
+"Thriller" - Michael Jackson
+"Stairway to Heaven" - Led Zeppelin
+"Imagine" - John Lennon
+"Smells Like Teen Spirit" - Nirvana
+"Purple Haze" - Jimi Hendrix
+"Billie Jean" - Michael Jackson
+"Every Breath You Take" - The Police
+"Wonderwall" - Oasis
+"Sweet Child o' Mine" - Guns N' Roses
+"Someone Like You" - Adele
+"Hallelujah" - Jeff Buckley
+"Yesterday" - The Beatles
+"Livin' on a Prayer" - Bon Jovi
+"Don't Stop Believin'" - Journey
+"Shape of You" - Ed Sheeran
+"The Sound of Silence" - Simon & Garfunkel
+"My Way" - Frank Sinatra
+"I Will Always Love You" - Whitney Houston
+"Thinking Out Loud" - Ed Sheeran
+"Sweet Caroline" - Neil Diamond
+"Boogie Wonderland" - Earth, Wind & Fire
+"I Want to Hold Your Hand" - The Beatles
+"I Will Survive" - Gloria Gaynor
+"Waterloo" - ABBA
+"Tears in Heaven" - Eric Clapton
+"Wannabe" - Spice Girls
+"A Thousand Years" - Christina Perri
+"Clocks" - Coldplay
+"Rolling in the Deep" - Adele
+"Born to Run" - Bruce Springsteen
+"Under Pressure" - Queen & David Bowie
+"The Winner Takes It All" - ABBA
+"Dancing Queen" - ABBA
+"Let It Be" - The Beatles
+"Boogie Woogie Bugle Boy" - The Andrews Sisters
+"Good Vibrations" - The Beach Boys
+"All of Me" - John Legend
+"Firework" - Katy Perry
+"I Say a Little Prayer" - Aretha Franklin
+"Nothing Else Matters" - Metallica
+"Angels" - Robbie Williams
+"Radioactive" - Imagine Dragons
+"Ain't No Mountain High Enough" - Marvin Gaye & Tammi Terrell
+"Love Me Tender" - Elvis Presley
+"Purple Rain" - Prince
+"Respect" - Aretha Franklin
+"I Want You Back" - The Jackson 5
+"With or Without You" - U2
+"Blackbird" - The Beatles
+"I Gotta Feeling" - The Black Eyed Peas
+"Let's Get It On" - Marvin Gaye
+"September" - Earth, Wind & Fire
+"Summertime" - Ella Fitzgerald & Louis Armstrong
+"Your Song" - Elton John
+"Three Little Birds" - Bob Marley & The Wailers
+"All You Need Is Love" - The Beatles
+"I Heard It Through the Grapevine" - Marvin Gaye
+"What a Wonderful World" - Louis Armstrong
+"Don't You Want Me" - The Human League
+"Sweet Dreams (Are Made of This)" - Eurythmics
+"Roxanne" - The Police
+"No Woman, No Cry" - Bob Marley & The Wailers
+"Faith" - George Michael
+"Killing Me Softly With His Song" - Roberta Flack
+"Help!" - The Beatles
+"Crazy" - Gnarls Barkley
+"Vogue" - Madonna
+"Dreams" - Fleetwood Mac
+"Space Oddity" - David Bowie
+"All Night Long (All Night)" - Lionel Richie
+"Unforgettable" - Nat King Cole
+"Brown Eyed Girl" - Van Morrison
+"Highway to Hell" - AC/DC
+"I'm Yours" - Jason Mraz
+"Heaven" - Bryan Adams
+"Let's Stay Together" - Al Green
+"Kiss From a Rose" - Seal
+"A Change Is Gonna Come" - Sam Cooke
+"It Must Have Been Love" - Roxette
+"You're Beautiful" - James Blunt
+"Shape of My Heart" - Sting
+"Rocket Man" - Elton John
+"Ain't No Sunshine" - Bill Withers
+"I'll Be There" - The Jackson 5
+"White Wedding" - Billy Idol
+"My Girl" - The Temptations
+"Girls Just Want to Have Fun" - Cyndi Lauper
+"Take On Me" - a-ha
+"Stand by Me" - Ben E. King
+"Losing My Religion" - R.E.M.
+"Eye of the Tiger" - Survivor
+"Sweet Home Alabama" - Lynyrd Skynyrd
+"I Want to Break Free" - Queen
+"Fast Car" - Tracy Chapman
+"The Power of Love" - Huey Lewis & The News
 ]
 
 
