@@ -1,5 +1,6 @@
 import sys
 import requests
+from bs4 import BeautifulSoup as BS
 import bs4
 import re
 import wikipedia
