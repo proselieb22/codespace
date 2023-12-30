@@ -1,114 +1,111 @@
-# project.py
-
+import sys
 import requests
+import bs4
 import re
 import wikipedia
 
-def wiki(file):
-    # Function to fetch Wikipedia links based on keywords in the file
-    # Implementation goes here
-    pass
 
-def output(results, wikipages, outfile="output.tsv"):
-    # Function to write the output to the specified file
-    # Implementation goes here
-    pass
-
-# Other functions required in project.py file
-def print_help():
-    print("This program helps you sort keywords by the number of Google search results.")
-    print("Usage: project.py INPUT_FILE OUTPUT_FILE [-w]")
-    print("-h  help")
-    print("-w  output links for Wikipedia pages into the file")
-    sys.exit(0)
-
-
-def process_arguments():
-    if len(sys.argv) == 2 and sys.argv[1] == "-h":
-        print_help()
+def main():
+    # usage
+    if sys.argv[1] == "-h":
+        print("This program helps you sort key words by number of google results.")
+        print("Usage: project.py INPUT_FILE OUTPUT_FILE [-w]")
+        print("-h  help")
+        print("-w  output links for wikipedia pages into the file")
+        sys.exit(0)
     elif len(sys.argv) == 3:
-        return False
+        w = False
     elif len(sys.argv) == 4 and sys.argv[-1] == '-w':
-        return True
+        w = True
     else:
         print("Usage: project.py INPUT_FILE OUTPUT_FILE [-w]")
         print("Use -h for the help page")
         sys.exit(1)
 
-
-def read_input_file(file_path):
+    # google search
     try:
-        with open(file_path) as file:
-            return file.readlines()
+        f1 = open(sys.argv[1])
     except FileNotFoundError:
         print("Invalid input file")
         sys.exit(1)
+    else:
+        results = google(f1.readlines())
+        f1.close()
+
+        if w:
+            f1 = open(sys.argv[1])
+            wikipages = wiki(f1.readlines())
+            f1.close()
+        else:
+            wikipages = {}
+
+    # output file
+    output(results, wikipages, sys.argv[2])
 
 
-def google_search(keywords):
+def google(file):
+    '''
+    Input a file with key words in each line.
+    Output a dictionary with key words as keys, numbers of google search results as values.
+    '''
     results = {}
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
 
-    for keyword in keywords:
-        response = requests.get("https://www.google.com/search?q=" + keyword.strip(), headers=headers)
+    for line in file:
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
+        response = requests.get("https://www.google.com/search?q=" + line.strip(), headers=headers)
         soup = bs4.BeautifulSoup(response.content, features="lxml")
         stats = soup.find(id="result-stats")
-
         if stats:
             matches = re.search(r"About ([0-9,]+) results", stats.text)
-            if matches:
-                n = matches.group(1)
-            else:
-                n = '0'
+            n = matches.group(1)
         else:
             n = '0'
-
-        results[keyword.strip()] = int(n.replace(',', ''))
+        results[line.strip()] = int(n.replace(',', ''))
 
     return results
 
 
-def get_wikipedia_links(keywords):
+def wiki(file):
+    '''
+    Input a file with key words in each line.
+    Output a dictionary with key words as keys, wikipedia links as values.
+    '''
     wikipages = {}
 
-    for keyword in keywords:
+    for line in file:
+        # search the key word on wikipedia
         try:
-            word = wikipedia.search(keyword.strip())[0]
-            page = wikipedia.page(word, auto_suggest=False)
-            wikipages[keyword.strip()] = page.url
-        except (IndexError, wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError):
+            word = wikipedia.search(line.strip())[0]
+        except IndexError:
             continue
+
+        # get the wikipage
+        try:
+            page = wikipedia.page(word, auto_suggest=False)
+        except wikipedia.exceptions.DisambiguationError as e:
+            word = e.options[0]
+            page = wikipedia.page(word, auto_suggest=False)
+
+        wikipages[line.strip()] = page.url
 
     return wikipages
 
 
-def output_to_file(results, wikipages, outfile="output.tsv"):
-    sorted_results = dict(sorted(results.items(), key=lambda x: x[1], reverse=True))
+def output(results, wikipages, outfile="output.tsv"):
+    '''
+    Input dictionaries with key words and their numbers of google search results or wikipedia links.
+    Input a filename.
+    Output the key words in a descending order based on numbers of google search results, together with wikipedia links (if exist).
+    '''
+    sort_results = dict(sorted(results.items(), key=lambda x: x[1], reverse=True))
 
-    with open(outfile, 'w') as output_file:
-        for key, value in sorted_results.items():
-            output_file.write(f"{key}\t{value:,}")
+    with open(outfile, 'w') as f2:
+        for key, value in sort_results.items():
+            f2.write(key + "\t" + str('{:,}'.format(value)))
             if key in wikipages:
-                output_file.write(f"\t{wikipages[key]}\n")
+                f2.write("\t" + wikipages[key] + "\n")
             else:
-                output_file.write("\n")
-
-
-def main():
-    if len(sys.argv) < 3:
-        print("Insufficient arguments.")
-        print_help()
-
-    wiki_flag = process_arguments()
-    input_keywords = read_input_file(sys.argv[1])
-    search_results = google_search(input_keywords)
-
-    if wiki_flag:
-        wikipedia_links = get_wikipedia_links(input_keywords)
-    else:
-        wikipedia_links = {}
-
-    output_to_file(search_results, wikipedia_links, sys.argv[2])
+                f2.write("\n")
 
 
 if __name__ == "__main__":
