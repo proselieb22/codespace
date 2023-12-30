@@ -38,7 +38,7 @@ def overlay_shirt(input_image, output_image):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        sys.exit("Too few command-line arguments")
+        sys.exit("Too few or too many command-line arguments")
 
     input_image = sys.argv[1]
     output_image = sys.argv[2]
