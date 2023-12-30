@@ -1,10 +1,12 @@
 # Tasker
 This project is the final step for the CS50P course and a command-line interface to-do list created using Python
-You can view tasks
-You are able to create a task
-You can update a task
-You can delete a task
-Exit
+**View Tasks:** Users can effortlessly view the existing tasks in a neatly organized format.
+- **Create Tasks:** Easily add new tasks to the to-do list, specifying the task name, description, due date, or any other relevant details.
+- **Update Tasks:** Modify and update existing tasks with revised information or revised due dates.
+- **Delete Tasks:** Remove completed or redundant tasks from the list.
+- **Exit:** Seamlessly exit the application whenever needed.
+
+
 
 Video Demo: <https://youtu.be/ze4drLzLYiw?si=uvVP6eW2bPBwfV88>
 
