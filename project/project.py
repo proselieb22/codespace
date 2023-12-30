@@ -37,9 +37,7 @@ def read_input_file(file_path):
 
 def google_search(keywords):
     results = {}
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
-    }
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
 
     for keyword in keywords:
         response = requests.get("https://www.google.com/search?q=" + keyword.strip(), headers=headers)
@@ -58,7 +56,6 @@ def google_search(keywords):
         results[keyword.strip()] = int(n.replace(',', ''))
 
     return results
-
 
 
 def get_wikipedia_links(keywords):
