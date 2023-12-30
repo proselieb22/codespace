@@ -58,7 +58,6 @@ def test_google():
                 n = '0'
         else:
             n = '0'
-
         results[line.strip()] = int(n.replace(',', ''))
 
     return results
